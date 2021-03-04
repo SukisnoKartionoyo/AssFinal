@@ -1,0 +1,195 @@
+basePath: /api/v1
+definitions:
+  models.Label:
+    properties:
+      LabelId:
+        description: gorm.Model
+        type: integer
+      LabelTitle:
+        type: string
+    type: object
+  models.Project:
+    properties:
+      ProjectId:
+        description: gorm.Model
+        type: integer
+      TitleProject:
+        type: string
+    type: object
+  models.Task:
+    properties:
+      LebelID:
+        type: integer
+      ProjectID:
+        type: integer
+      StatusID:
+        type: integer
+      TaskID:
+        description: gorm.Model
+        type: integer
+      Time:
+        type: string
+      Title:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: sukisno.kartionoyo@gmail.com
+    name: Todo.Support
+  description: This is a basic API Todo of which has proprerties of Project, Label,
+    Status, and Title using Gin and Gorm.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Todo API
+  version: "1.0"
+paths:
+  /label:
+    post:
+      consumes:
+      - application/json
+      description: Add by JSON Label
+      parameters:
+      - description: Add Label
+        in: body
+        name: label
+        required: true
+        schema:
+          $ref: '#/definitions/models.Label'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Label'
+      summary: Create Label data
+      tags:
+      - label
+  /project:
+    post:
+      consumes:
+      - application/json
+      description: Add by JSON Project
+      parameters:
+      - description: Add Project
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/models.Project'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Project'
+      summary: Create Project data
+      tags:
+      - project
+  /task:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Task'
+      summary: Show a list of Tasks
+      tags:
+      - tasks
+    post:
+      consumes:
+      - application/json
+      description: Add by JSON Task
+      parameters:
+      - description: Add Task
+        in: body
+        name: task
+        required: true
+        schema:
+          $ref: '#/definitions/models.Task'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Task'
+      summary: Create task
+      tags:
+      - task
+  /task/{task_id}:
+    delete:
+      consumes:
+      - application/json
+      operationId: get-string-by-int
+      parameters:
+      - description: Task ID
+        in: path
+        name: task_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Task'
+      summary: Delete task including project, label, status by task id
+      tags:
+      - task
+    get:
+      consumes:
+      - application/json
+      operationId: get-string-by-int
+      parameters:
+      - description: Task ID
+        in: path
+        name: task_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Task'
+      summary: Show task detail including project, label, status based on Task Id
+      tags:
+      - tasks
+  /task_id/{task_id}:
+    put:
+      consumes:
+      - application/json
+      description: Update by JSON Task
+      parameters:
+      - description: Task Id
+        in: path
+        name: task_id
+        required: true
+        type: integer
+      - description: Update Task
+        in: body
+        name: task
+        required: true
+        schema:
+          $ref: '#/definitions/models.Task'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Task'
+      summary: Update task or items by TaskId
+      tags:
+      - task
+swagger: "2.0"
